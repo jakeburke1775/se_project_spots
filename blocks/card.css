@@ -1,10 +1,5 @@
-.card {
-  width: 413px;
-}
-
 .card__image {
-  width: 423px;
-  height: 423px;
+  width: 100%;
   object-fit: cover;
   border-radius: 8px;
   display: block;
@@ -13,10 +8,12 @@
 .card__content {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+  margin-bottom: 20px;
 }
 
 .card__title {
+  margin: 12px 0 0 0;
 }
 .card__like-btn {
   background-image: url(../images/like.svg);
@@ -25,4 +22,10 @@
   padding: 0;
   border: none;
   opacity: 40%;
+}
+
+@media screen and (max-width: 627px) {
+  .card__image {
+    height: 288px;
+  }
 }

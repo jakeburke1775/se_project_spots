@@ -1,0 +1,10 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.footer__copyrt {
+  padding: 60px;
+  opacity: 70%;
+}
