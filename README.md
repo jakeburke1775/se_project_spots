@@ -10,10 +10,14 @@ The prompt was introduced as a figma design and rendered into a proper website.
 
 ## Technology Involved
 
+### HTML and CSS
+
+- flexbox
 - grid
 - media queries
 - face fonts
 - proper file format
+- bash and git terminal execution
 
 ## Deployment
 
