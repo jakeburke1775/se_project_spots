@@ -1,6 +1,6 @@
 .profile {
   display: flex;
-  padding: 34px 0 20px;
+  padding: 34px 80px 20px;
   border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
 }
 
@@ -24,6 +24,8 @@
 
 .profile__edit-btn {
   margin-top: auto;
+  border: none;
+  background-color: none;
 }
 
 .profile__add-btn {
