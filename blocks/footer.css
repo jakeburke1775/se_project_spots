@@ -5,6 +5,7 @@
 }
 
 .footer__copyrt {
+  margin: 0;
   padding: 60px;
   opacity: 70%;
   font-weight: 400;

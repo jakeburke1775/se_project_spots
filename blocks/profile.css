@@ -1,6 +1,6 @@
 .profile {
   display: flex;
-  padding: 34px 80px 20px;
+  padding: 34px 0 20px;
   border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
 }
 
@@ -30,6 +30,7 @@
 }
 
 .profile__description {
+  max-width: 420px;
   margin: 0;
   font-weight: 500;
   font-size: 16px;
@@ -80,13 +81,13 @@
     max-width: 288px;
     align-items: center;
     text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 0 20px;
   }
 
   .profile__name {
     font-size: 20px;
     margin: 0 0 6px;
+    /* min-width: 288px; */
   }
 
   .profile__description {
