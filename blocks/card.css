@@ -29,6 +29,13 @@
   padding: 0;
   border: none;
   opacity: 40%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.card__like-btn:hover {
+  cursor: url(../images/pointer.png), auto;
 }
 
 @media screen and (max-width: 627px) {

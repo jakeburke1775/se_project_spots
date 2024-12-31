@@ -58,6 +58,10 @@
   gap: 8px;
 }
 
+.profile__edit-btn:hover {
+  cursor: url(../images/pointer.png), auto;
+}
+
 .profile__add-btn {
   margin-left: auto;
   margin-top: auto;
@@ -73,6 +77,10 @@
   display: flex;
   justify-content: center;
   gap: 8px;
+}
+
+.profile__add-btn:hover {
+  cursor: url(../images/pointer.png), auto;
 }
 
 @media screen and (max-width: 627px) {
