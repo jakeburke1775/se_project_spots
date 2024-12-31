@@ -60,6 +60,7 @@
 
 .profile__edit-btn:hover {
   cursor: url(../images/pointer.png), auto;
+  opacity: 1;
 }
 
 .profile__add-btn {
@@ -81,6 +82,7 @@
 
 .profile__add-btn:hover {
   cursor: url(../images/pointer.png), auto;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 627px) {
