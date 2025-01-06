@@ -26,3 +26,24 @@ const initialCards = [
 ];
 
 console.log(initialCards);
+
+const profEditBtn = document.querySelector(".profile__edit-btn");
+const editProfModal = document.getElementById("edit-modal");
+const closeModal = document.querySelector(".modal__close-btn");
+
+// THE RIGHT WAY
+// profEditBtn.addEventListener("click", function () {
+//   editProfModal.classList.add("modal_opened");
+// });
+
+// closeModal.addEventListener("click", function () {
+//   editProfModal.classList.remove("modal_opened");
+// });
+
+// THE FUN WAY
+function toggleModal() {
+  editProfModal.classList.toggle("modal_opened");
+}
+
+profEditBtn.addEventListener("click", toggleModal);
+closeModal.addEventListener("click", toggleModal);
