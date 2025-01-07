@@ -27,25 +27,29 @@ const initialCards = [
 
 const profEditBtn = document.querySelector(".profile__edit-btn");
 const editProfModal = document.getElementById("edit-modal");
+//const editProfModal = document.forms["edit-profile"]; this did not work
 const closeModal = document.querySelector(".modal__close-btn");
-const subModal = document.querySelector(".modal__form");
+const subProfForm = document.querySelector(".modal__form");
 
-let profName = document.querySelector(".profile__name");
-let profNameField = document.getElementById("name");
-let profDesc = document.querySelector(".profile__description");
-let profDescField = document.getElementById("description");
+const profName = document.querySelector(".profile__name");
+const profNameField = document.getElementById("name");
+const profDesc = document.querySelector(".profile__description");
+const profDescField = document.getElementById("description");
 
 const cardTemp = document.getElementById("card-temp");
 const cardsList = document.querySelector(".cards__list");
 
+function closeProfModal() {
+  editProfModal.classList.remove("modal_opened");
+}
+
 function getCardElement(data) {
-  let cardElement = cardTemp.content.querySelector(".card").cloneNode(true);
+  const cardElement = cardTemp.content.querySelector(".card").cloneNode(true);
 
   const cardNameEl = cardElement.querySelector(".card__title");
   cardNameEl.textContent = data.name;
-
   const cardImgEl = cardElement.querySelector(".card__image");
-  console.log(data.link);
+  cardImgEl.alt = data.name;
   cardImgEl.src = data.link;
 
   return cardElement;
@@ -57,15 +61,13 @@ profEditBtn.addEventListener("click", function () {
   profDescField.value = profDesc.textContent;
 });
 
-closeModal.addEventListener("click", function () {
-  editProfModal.classList.remove("modal_opened");
-});
+closeModal.addEventListener("click", closeProfModal);
 
-subModal.addEventListener("submit", function (event) {
+subProfForm.addEventListener("submit", function (event) {
   event.preventDefault();
   profName.textContent = profNameField.value;
   profDesc.textContent = profDescField.value;
-  editProfModal.classList.remove("modal_opened");
+  closeProfModal(); //is this what u meant mr/mrs code reviewer?
 });
 
 for (let i = 0; i < initialCards.length; i++) {
@@ -73,13 +75,3 @@ for (let i = 0; i < initialCards.length; i++) {
   console.log(cardElement);
   cardsList.prepend(cardElement);
 }
-
-//condensed toggle (may be better for static modals rather than a form or interactive modal)
-
-// function toggleModal() {
-//   editProfModal.classList.toggle("modal_opened");
-
-// }
-
-// profEditBtn.addEventListener("click", toggleModal);
-// closeModal.addEventListener("click", toggleModal);
