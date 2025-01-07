@@ -27,7 +27,6 @@ const initialCards = [
 
 const profEditBtn = document.querySelector(".profile__edit-btn");
 const editProfModal = document.getElementById("edit-modal");
-//const editProfModal = document.forms["edit-profile"]; this did not work
 const closeModal = document.querySelector(".modal__close-btn");
 const subProfForm = document.querySelector(".modal__form");
 
@@ -67,7 +66,7 @@ subProfForm.addEventListener("submit", function (event) {
   event.preventDefault();
   profName.textContent = profNameField.value;
   profDesc.textContent = profDescField.value;
-  closeProfModal(); //is this what u meant mr/mrs code reviewer?
+  closeProfModal();
 });
 
 for (let i = 0; i < initialCards.length; i++) {
