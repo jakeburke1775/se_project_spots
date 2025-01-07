@@ -25,25 +25,61 @@ const initialCards = [
   },
 ];
 
-console.log(initialCards);
-
 const profEditBtn = document.querySelector(".profile__edit-btn");
 const editProfModal = document.getElementById("edit-modal");
 const closeModal = document.querySelector(".modal__close-btn");
+const subModal = document.querySelector(".modal__form");
 
-// THE RIGHT WAY
-// profEditBtn.addEventListener("click", function () {
-//   editProfModal.classList.add("modal_opened");
-// });
+let profName = document.querySelector(".profile__name");
+let profNameField = document.getElementById("name");
+let profDesc = document.querySelector(".profile__description");
+let profDescField = document.getElementById("description");
 
-// closeModal.addEventListener("click", function () {
-//   editProfModal.classList.remove("modal_opened");
-// });
+const cardTemp = document.getElementById("card-temp");
+const cardsList = document.querySelector(".cards__list");
 
-// THE FUN WAY
-function toggleModal() {
-  editProfModal.classList.toggle("modal_opened");
+function getCardElement(data) {
+  let cardElement = cardTemp.content.querySelector(".card").cloneNode(true);
+
+  const cardNameEl = cardElement.querySelector(".card__title");
+  cardNameEl.textContent = data.name;
+
+  const cardImgEl = cardElement.querySelector(".card__image");
+  console.log(data.link);
+  cardImgEl.src = data.link;
+
+  return cardElement;
 }
 
-profEditBtn.addEventListener("click", toggleModal);
-closeModal.addEventListener("click", toggleModal);
+profEditBtn.addEventListener("click", function () {
+  editProfModal.classList.add("modal_opened");
+  profNameField.value = profName.textContent;
+  profDescField.value = profDesc.textContent;
+});
+
+closeModal.addEventListener("click", function () {
+  editProfModal.classList.remove("modal_opened");
+});
+
+subModal.addEventListener("submit", function (event) {
+  event.preventDefault();
+  profName.textContent = profNameField.value;
+  profDesc.textContent = profDescField.value;
+  editProfModal.classList.remove("modal_opened");
+});
+
+for (let i = 0; i < initialCards.length; i++) {
+  const cardElement = getCardElement(initialCards[i]);
+  console.log(cardElement);
+  cardsList.prepend(cardElement);
+}
+
+//condensed toggle (may be better for static modals rather than a form or interactive modal)
+
+// function toggleModal() {
+//   editProfModal.classList.toggle("modal_opened");
+
+// }
+
+// profEditBtn.addEventListener("click", toggleModal);
+// closeModal.addEventListener("click", toggleModal);

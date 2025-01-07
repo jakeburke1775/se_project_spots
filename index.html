@@ -37,86 +37,18 @@
         </section>
         <section class="cards page__section">
           <ul class="cards__list">
-            <!-- VAL THORENS -->
+            <!-- card template  -->
 
-            <li class="card">
-              <img
-                src="./images/val-thorens.png"
-                alt="Val Thorens"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__title">Val Thorens</h2>
-                <button type="button" class="card__like-btn button"></button>
-              </div>
-            </li>
-            <!-- RESTAURANT TERRACE -->
-
-            <li class="card">
-              <img
-                src="./images/rest-terrace.png"
-                alt="Restaurant Terrace"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__title">Restaurant Terrace</h2>
-                <button type="button" class="card__like-btn button"></button>
-              </div>
-            </li>
-            <!-- An Outdoor Cafe -->
-
-            <li class="card">
-              <img
-                src="./images/out-cafe.png"
-                alt="An Outdoor Cafe"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__title">An Outdoor Cafe</h2>
-                <button type="button" class="card__like-btn button"></button>
-              </div>
-            </li>
-            <!-- A very long Bridge over the Forrest... -->
-
-            <li class="card">
-              <img
-                src="./images/bridge.png"
-                alt="A very long Bridge over the Forrest"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__title">
-                  A very very very very very long Bridge over the Forrest...
-                </h2>
-                <button type="button" class="card__like-btn button"></button>
-              </div>
-            </li>
-            <!-- Tunnel with Morning Light -->
-
-            <li class="card">
-              <img
-                src="./images/tunnel.png"
-                alt="Tunnel with Morning Light"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__title">Tunnel with Morning Light</h2>
-                <button type="button" class="card__like-btn button"></button>
-              </div>
-            </li>
-            <!-- Mountain House -->
-
-            <li class="card">
-              <img
-                src="./images/mt-house.png"
-                alt="Mountain House"
-                class="card__image"
-              />
-              <div class="card__content">
-                <h2 class="card__title">Mountain House</h2>
-                <button type="button" class="card__like-btn button"></button>
-              </div>
-            </li>
+            <template id="card-temp">
+              <li class="card">
+                <img src="" alt="" class="card__image" />
+                <div class="card__content">
+                  <h2 class="card__title"></h2>
+                  <button type="button" class="card__like-btn button"></button>
+                </div>
+              </li>
+            </template>
+            <!-- end of tempkate  -->
           </ul>
         </section>
       </main>
@@ -137,10 +69,10 @@
                 placeholder="Type your name"
               />
             </label>
-            <label for="discription" class="modal__label">
+            <label for="description" class="modal__label">
               Description
               <input
-                id="discription"
+                id="description"
                 type="text"
                 class="modal__input"
                 placeholder="Describe yourself"

@@ -101,6 +101,11 @@
   text-decoration-skip-ink: none;
 }
 
+.modal__submit-btn:hover {
+  opacity: 0.8;
+  cursor: url(../images/pointer.png), auto;
+}
+
 @media screen and (max-width: 627px) {
   .modal {
     padding: 0 10px;
