@@ -69,8 +69,8 @@ subProfForm.addEventListener("submit", function (event) {
   closeProfModal();
 });
 
-for (let i = 0; i < initialCards.length; i++) {
-  const cardElement = getCardElement(initialCards[i]);
-  console.log(cardElement);
+initialCards.forEach((element) => {
+  const cardElement = getCardElement(element);
+  console.log(element);
   cardsList.prepend(cardElement);
-}
+});
