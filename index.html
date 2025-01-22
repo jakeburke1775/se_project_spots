@@ -52,6 +52,8 @@
       <footer class="footer">
         <p class="footer__copyrt">2025 © Spots</p>
       </footer>
+      <!-- Edit Profile
+      -->
       <div class="modal" id="edit-modal">
         <div class="modal__container">
           <button class="modal__close-btn"></button>
@@ -73,6 +75,35 @@
                 type="text"
                 class="modal__input"
                 placeholder="Describe yourself"
+              />
+            </label>
+            <button class="modal__submit-btn" type="submit">Save</button>
+          </form>
+        </div>
+      </div>
+      <!-- New Post
+       -->
+      <div class="modal modal_opened" id="add-card-modal">
+        <div class="modal__container">
+          <button class="modal__close-btn"></button>
+          <h2 class="modal__title">New Post</h2>
+          <form name="edit-profile" class="modal__form">
+            <label for="name" class="modal__label">
+              Link
+              <input
+                id="name"
+                type="text"
+                class="modal__input"
+                placeholder="URL to image"
+              />
+            </label>
+            <label for="description" class="modal__label">
+              Caption
+              <input
+                id="description"
+                type="text"
+                class="modal__input"
+                placeholder="A captivating caption"
               />
             </label>
             <button class="modal__submit-btn" type="submit">Save</button>
