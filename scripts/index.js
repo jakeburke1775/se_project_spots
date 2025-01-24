@@ -27,20 +27,23 @@ const initialCards = [
 
 const profEditBtn = document.querySelector(".profile__edit-btn");
 const editProfModal = document.getElementById("edit-modal");
-const closeModal = document.querySelector(".modal__close-btn");
+const closeModalBttn = document.querySelector(".modal__close-btn");
 const subProfForm = document.querySelector(".modal__form");
 
 const profName = document.querySelector(".profile__name");
-const profNameField = document.getElementById("name");
+const profNameField = document.getElementById("profile-name-input");
 const profDesc = document.querySelector(".profile__description");
-const profDescField = document.getElementById("description");
+const profDescField = document.getElementById("profile-name-description");
 
 const cardTemp = document.getElementById("card-temp");
 const cardsList = document.querySelector(".cards__list");
 
-function closeProfModal() {
+function closeModal() {
   editProfModal.classList.remove("modal_opened");
 }
+
+// const closeModal = (modal) => modal.classList.remove("modal_opened");
+const openModal = (modal) => modal.classList.add("modal_opened");
 
 function getCardElement(data) {
   const cardElement = cardTemp.content.querySelector(".card").cloneNode(true);
@@ -55,18 +58,18 @@ function getCardElement(data) {
 }
 
 profEditBtn.addEventListener("click", function () {
-  editProfModal.classList.add("modal_opened");
+  openModal(editProfModal);
   profNameField.value = profName.textContent;
   profDescField.value = profDesc.textContent;
 });
 
-closeModal.addEventListener("click", closeProfModal);
+closeModalBttn.addEventListener("click", closeModal);
 
 subProfForm.addEventListener("submit", function (event) {
   event.preventDefault();
   profName.textContent = profNameField.value;
   profDesc.textContent = profDescField.value;
-  closeProfModal();
+  closeModal(editProfModal);
 });
 
 initialCards.forEach((element) => {

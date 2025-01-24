@@ -57,12 +57,13 @@
       <div class="modal" id="edit-modal">
         <div class="modal__container">
           <button class="modal__close-btn"></button>
-          <h2 class="modal__title">Edit Profile</h2>
-          <form name="edit-profile" class="modal__form">
+          <h3 class="modal__title">Edit Profile</h3>
+          <form class="modal__form">
             <label for="name" class="modal__label">
               Name
               <input
-                id="name"
+                name="name"
+                id="profile-name-input"
                 type="text"
                 class="modal__input"
                 placeholder="Type your name"
@@ -71,7 +72,7 @@
             <label for="description" class="modal__label">
               Description
               <input
-                id="description"
+                id="profile-name-description"
                 type="text"
                 class="modal__input"
                 placeholder="Describe yourself"
@@ -83,24 +84,26 @@
       </div>
       <!-- New Post
        -->
-      <div class="modal modal_opened" id="add-card-modal">
+      <div class="modal" id="add-card-modal">
         <div class="modal__container">
           <button class="modal__close-btn"></button>
-          <h2 class="modal__title">New Post</h2>
-          <form name="edit-profile" class="modal__form" id="add-card-form">
+          <h3 class="modal__title">New Post</h3>
+          <form class="modal__form" id="add-card-form">
             <label for="add-card-link-input" class="modal__label">
               Image Link
               <input
+                name="link"
                 id="add-card-link-input"
                 type="url"
                 class="modal__input"
                 placeholder="Paste the link to the picture"
               />
             </label>
-            <label for="add-card-description-input" class="modal__label">
+            <label for="add-card-name-input" class="modal__label">
               Caption
               <input
-                id="add-card-description-input"
+                name="name"
+                id="add-card-name-input"
                 type="text"
                 class="modal__input"
                 placeholder="Type your caption"
