@@ -25,6 +25,7 @@ const initialCards = [
   },
 ];
 
+//DOM SELECTORS
 const profEditBtn = document.querySelector(".profile__edit-btn");
 const editProfModal = document.getElementById("edit-modal");
 const closeModalBttn = document.querySelector(".modal__close-btn");
@@ -38,13 +39,7 @@ const profDescField = document.getElementById("profile-name-description");
 const cardTemp = document.getElementById("card-temp");
 const cardsList = document.querySelector(".cards__list");
 
-function closeModal() {
-  editProfModal.classList.remove("modal_opened");
-}
-
-// const closeModal = (modal) => modal.classList.remove("modal_opened");
-const openModal = (modal) => modal.classList.add("modal_opened");
-
+//CARD DATA AND LOOP
 function getCardElement(data) {
   const cardElement = cardTemp.content.querySelector(".card").cloneNode(true);
 
@@ -56,24 +51,30 @@ function getCardElement(data) {
 
   return cardElement;
 }
-
-profEditBtn.addEventListener("click", function () {
-  openModal(editProfModal);
-  profNameField.value = profName.textContent;
-  profDescField.value = profDesc.textContent;
+initialCards.forEach((element) => {
+  const cardElement = getCardElement(element);
+  console.log(element);
+  cardsList.prepend(cardElement);
 });
 
-closeModalBttn.addEventListener("click", closeModal);
+// OPEN/CLOSE MODAL FUNCTIONS
+const closeModal = (modal) => modal.classList.remove("modal_opened");
+const openModal = (modal) => modal.classList.add("modal_opened");
 
+// EVENT LISTENERS
+//      OPEN EDIT PROF
+profEditBtn.addEventListener("click", () => {
+  profNameField.value = profName.textContent;
+  profDescField.value = profDesc.textContent;
+  openModal(editProfModal);
+});
+//      EDIT PROF CLOSE BUTTON
+closeModalBttn.addEventListener("click", () => closeModal(editProfModal));
+
+//      SUBMIT EDIT PROF FORM
 subProfForm.addEventListener("submit", function (event) {
   event.preventDefault();
   profName.textContent = profNameField.value;
   profDesc.textContent = profDescField.value;
   closeModal(editProfModal);
-});
-
-initialCards.forEach((element) => {
-  const cardElement = getCardElement(element);
-  console.log(element);
-  cardsList.prepend(cardElement);
 });
