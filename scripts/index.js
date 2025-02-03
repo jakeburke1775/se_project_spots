@@ -25,12 +25,18 @@ const initialCards = [
   },
 ];
 
-//DOM SELECTORS
+//DOM SELECTORS____________________________________________________________________________
 const profEditBtn = document.querySelector(".profile__edit-btn");
-const editProfModal = document.getElementById("edit-modal");
-const closeModalBttn = document.querySelector(".modal__close-btn");
-const subProfForm = document.querySelector(".modal__form");
+const addCardBtn = document.querySelector(".profile__add-btn");
 
+//--modals
+const editProfModal = document.getElementById("edit-modal");
+const addCardModal = document.getElementById("add-card-modal");
+
+const closeEditModalBttn = editProfModal.querySelector(".modal__close-btn");
+const closeAddCardModalBttn = addCardModal.querySelector(".modal__close-btn");
+
+const subProfForm = document.querySelector(".modal__form");
 const profName = document.querySelector(".profile__name");
 const profNameField = document.getElementById("profile-name-input");
 const profDesc = document.querySelector(".profile__description");
@@ -39,7 +45,7 @@ const profDescField = document.getElementById("profile-name-description");
 const cardTemp = document.getElementById("card-temp");
 const cardsList = document.querySelector(".cards__list");
 
-//CARD DATA AND LOOP
+//CARD DATA AND LOOP_______________________________________________________________________
 function getCardElement(data) {
   const cardElement = cardTemp.content.querySelector(".card").cloneNode(true);
 
@@ -57,21 +63,28 @@ initialCards.forEach((element) => {
   cardsList.prepend(cardElement);
 });
 
-// OPEN/CLOSE MODAL FUNCTIONS
+// OPEN/CLOSE MODAL FUNCTIONS______________________________________________________________
 const closeModal = (modal) => modal.classList.remove("modal_opened");
 const openModal = (modal) => modal.classList.add("modal_opened");
 
-// EVENT LISTENERS
-//      OPEN EDIT PROF
+// EVENT LISTENERS_________________________________________________________________________
+
+//-------open edit prof--------------------------------------------------------------------
 profEditBtn.addEventListener("click", () => {
   profNameField.value = profName.textContent;
   profDescField.value = profDesc.textContent;
   openModal(editProfModal);
 });
-//      EDIT PROF CLOSE BUTTON
-closeModalBttn.addEventListener("click", () => closeModal(editProfModal));
+//-------open addCard   -------------------------------------------------------------------
+addCardBtn.addEventListener("click", () => {
+  openModal(addCardModal);
+});
 
-//      SUBMIT EDIT PROF FORM
+//-------close buttons-----------------------------------------------------------
+closeEditModalBttn.addEventListener("click", () => closeModal(editProfModal));
+closeAddCardModalBttn.addEventListener("click", () => closeModal(addCardModal));
+
+//-------submit edit prof form------------------------------------------------------------
 subProfForm.addEventListener("submit", function (event) {
   event.preventDefault();
   profName.textContent = profNameField.value;
