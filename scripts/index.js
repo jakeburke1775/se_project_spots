@@ -42,6 +42,11 @@ const profNameField = document.getElementById("profile-name-input");
 const profDesc = document.querySelector(".profile__description");
 const profDescField = document.getElementById("profile-name-description");
 
+const subCardForm = addCardModal.querySelector(".modal__form");
+// WHY DOESNT GETELEMENTBYID WORK HERE???????
+const addCardURL = addCardModal.querySelector("#add-card-link-input");
+const addCardCaption = addCardModal.querySelector("#add-card-name-input");
+
 const cardTemp = document.getElementById("card-temp");
 const cardsList = document.querySelector(".cards__list");
 
@@ -51,21 +56,38 @@ function getCardElement(data) {
 
   const cardNameEl = cardElement.querySelector(".card__title");
   cardNameEl.textContent = data.name;
+
   const cardImgEl = cardElement.querySelector(".card__image");
   cardImgEl.alt = data.name;
   cardImgEl.src = data.link;
 
   return cardElement;
 }
+
 initialCards.forEach((element) => {
   const cardElement = getCardElement(element);
-  console.log(element);
   cardsList.prepend(cardElement);
 });
 
 // OPEN/CLOSE MODAL FUNCTIONS______________________________________________________________
 const closeModal = (modal) => modal.classList.remove("modal_opened");
 const openModal = (modal) => modal.classList.add("modal_opened");
+
+const handleEditProfSubmit = (evt) => {
+  evt.preventDefault();
+  profName.textContent = profNameField.value;
+  profDesc.textContent = profDescField.value;
+  closeModal(editProfModal);
+};
+
+const handleAddCardSubmit = (evt) => {
+  //comment
+  evt.preventDefault();
+  const inputValues = { name: addCardCaption.value, link: addCardURL.value };
+  const cardElement = getCardElement(inputValues);
+  cardsList.prepend(cardElement);
+  closeModal(addCardModal);
+};
 
 // EVENT LISTENERS_________________________________________________________________________
 
@@ -85,9 +107,7 @@ closeEditModalBttn.addEventListener("click", () => closeModal(editProfModal));
 closeAddCardModalBttn.addEventListener("click", () => closeModal(addCardModal));
 
 //-------submit edit prof form------------------------------------------------------------
-subProfForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-  profName.textContent = profNameField.value;
-  profDesc.textContent = profDescField.value;
-  closeModal(editProfModal);
-});
+subProfForm.addEventListener("submit", handleEditProfSubmit);
+
+//-------submit add card form------------------------------------------------------------
+subCardForm.addEventListener("submit", handleAddCardSubmit);
