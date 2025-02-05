@@ -149,7 +149,7 @@
     padding: 0 10px;
   }
   .modal__content {
-    padding: 12px;
+    /* padding: 12px; */
   }
   .modal__title {
     font-size: 20px;
@@ -179,4 +179,8 @@
     top: -28px;
     right: 0;
   }
+
+  /* .modal__image {
+    max-width: 250px;
+  } */
 }
