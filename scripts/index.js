@@ -47,15 +47,14 @@ const subCardForm = addCardModal.querySelector(".modal__form");
 const addCardURL = addCardModal.querySelector("#add-card-link-input");
 const addCardCaption = addCardModal.querySelector("#add-card-name-input");
 
-const cardTemp = document.getElementById("card-temp");
-const cardsList = document.querySelector(".cards__list");
-
 //CARD DATA AND LOOP_______________________________________________________________________
 function getCardElement(data) {
+  const cardTemp = document.getElementById("card-temp");
   const cardElement = cardTemp.content.querySelector(".card").cloneNode(true);
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardImgEl = cardElement.querySelector(".card__image");
   const cardLikeBtn = cardElement.querySelector(".card__like-btn");
+  const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
 
   cardNameEl.textContent = data.name;
   cardImgEl.alt = data.name;
@@ -65,8 +64,12 @@ function getCardElement(data) {
     cardLikeBtn.classList.toggle("card__like-btn_liked")
   );
 
+  cardDeleteBtn.addEventListener("click", () => cardElement.remove());
+
   return cardElement;
 }
+
+const cardsList = document.querySelector(".cards__list");
 
 initialCards.forEach((element) => {
   const cardElement = getCardElement(element);
