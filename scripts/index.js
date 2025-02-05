@@ -46,13 +46,14 @@ const closeAddCardModalBttn = addCardModal.querySelector(".modal__close-btn");
 const closePrevModalBttn = prevModal.querySelector(".modal__close-btn");
 
 const subProfForm = document.querySelector(".modal__form");
+// ^changing to document.forms[".modal__form"];
+// made it so that when you submit the screen refreshes :(
 const profName = document.querySelector(".profile__name");
 const profNameField = document.getElementById("profile-name-input");
 const profDesc = document.querySelector(".profile__description");
 const profDescField = document.getElementById("profile-name-description");
 
 const subCardForm = addCardModal.querySelector(".modal__form");
-// WHY DOESNT GETELEMENTBYID WORK HERE???????
 const addCardURL = addCardModal.querySelector("#add-card-link-input");
 const addCardCaption = addCardModal.querySelector("#add-card-name-input");
 
@@ -90,6 +91,7 @@ const cardsList = document.querySelector(".cards__list");
 initialCards.forEach((element) => {
   const cardElement = getCardElement(element);
   cardsList.prepend(cardElement);
+  //i dont understand your explaination i am sorry
 });
 
 // OPEN/CLOSE MODAL FUNCTIONS______________________________________________________________
@@ -110,6 +112,7 @@ const handleAddCardSubmit = (evt) => {
   const inputValues = { name: addCardCaption.value, link: addCardURL.value };
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
+  evt.target.reset();
   closeModal(addCardModal);
 };
 
