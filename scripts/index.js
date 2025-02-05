@@ -1,5 +1,9 @@
 const initialCards = [
   {
+    name: "Golden Gate Bridge",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+  },
+  {
     name: "Val Thorens",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
   },
@@ -33,8 +37,13 @@ const addCardBtn = document.querySelector(".profile__add-btn");
 const editProfModal = document.getElementById("edit-modal");
 const addCardModal = document.getElementById("add-card-modal");
 
+const prevModal = document.getElementById("preview-modal");
+const prevModalImgEl = prevModal.querySelector(".modal__image");
+const prevModalCapEl = prevModal.querySelector(".modal__caption");
+
 const closeEditModalBttn = editProfModal.querySelector(".modal__close-btn");
 const closeAddCardModalBttn = addCardModal.querySelector(".modal__close-btn");
+const closePrevModalBttn = prevModal.querySelector(".modal__close-btn");
 
 const subProfForm = document.querySelector(".modal__form");
 const profName = document.querySelector(".profile__name");
@@ -65,6 +74,13 @@ function getCardElement(data) {
   );
 
   cardDeleteBtn.addEventListener("click", () => cardElement.remove());
+
+  cardImgEl.addEventListener("click", () => {
+    openModal(prevModal);
+    prevModalImgEl.src = data.link;
+    prevModalImgEl.alt = data.name;
+    prevModalCapEl.textContent = data.name;
+  });
 
   return cardElement;
 }
@@ -113,6 +129,7 @@ addCardBtn.addEventListener("click", () => {
 //-------close buttons-----------------------------------------------------------
 closeEditModalBttn.addEventListener("click", () => closeModal(editProfModal));
 closeAddCardModalBttn.addEventListener("click", () => closeModal(addCardModal));
+closePrevModalBttn.addEventListener("click", () => closeModal(prevModal));
 
 //-------submit edit prof form------------------------------------------------------------
 subProfForm.addEventListener("submit", handleEditProfSubmit);
