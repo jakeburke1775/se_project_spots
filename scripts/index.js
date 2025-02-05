@@ -53,13 +53,17 @@ const cardsList = document.querySelector(".cards__list");
 //CARD DATA AND LOOP_______________________________________________________________________
 function getCardElement(data) {
   const cardElement = cardTemp.content.querySelector(".card").cloneNode(true);
-
   const cardNameEl = cardElement.querySelector(".card__title");
-  cardNameEl.textContent = data.name;
-
   const cardImgEl = cardElement.querySelector(".card__image");
+  const cardLikeBtn = cardElement.querySelector(".card__like-btn");
+
+  cardNameEl.textContent = data.name;
   cardImgEl.alt = data.name;
   cardImgEl.src = data.link;
+
+  cardLikeBtn.addEventListener("click", () =>
+    cardLikeBtn.classList.toggle("card__like-btn_liked")
+  );
 
   return cardElement;
 }
@@ -73,6 +77,7 @@ initialCards.forEach((element) => {
 const closeModal = (modal) => modal.classList.remove("modal_opened");
 const openModal = (modal) => modal.classList.add("modal_opened");
 
+//edit profile handler
 const handleEditProfSubmit = (evt) => {
   evt.preventDefault();
   profName.textContent = profNameField.value;
@@ -80,8 +85,8 @@ const handleEditProfSubmit = (evt) => {
   closeModal(editProfModal);
 };
 
+//add card handler
 const handleAddCardSubmit = (evt) => {
-  //comment
   evt.preventDefault();
   const inputValues = { name: addCardCaption.value, link: addCardURL.value };
   const cardElement = getCardElement(inputValues);
