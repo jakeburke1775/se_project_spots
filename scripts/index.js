@@ -118,13 +118,13 @@ const handleAddCardSubmit = (evt) => {
 
 // EVENT LISTENERS_________________________________________________________________________
 
-//-------open edit prof--------------------------------------------------------------------
+//-------open edit prof modal--------------------------------------------------------------------
 profEditBtn.addEventListener("click", () => {
   profNameField.value = profName.textContent;
   profDescField.value = profDesc.textContent;
   openModal(editProfModal);
 });
-//-------open addCard   -------------------------------------------------------------------
+//-------open add Card modal  -------------------------------------------------------------------
 addCardBtn.addEventListener("click", () => {
   openModal(addCardModal);
 });
