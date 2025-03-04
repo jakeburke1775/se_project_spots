@@ -145,14 +145,13 @@
   text-decoration-skip-ink: none;
 }
 
-.modal__submit-btn-inactive {
-  opacity: 0.1;
-  box-shadow: 5px 20px 20px;
-}
-
-.modal__submit-btn:hover {
+.modal__submit-btn_hover:hover {
   opacity: 0.8;
   cursor: url(../images/pointer.png), auto;
+}
+
+.modal__submit-btn-inactive {
+  opacity: 0.5;
 }
 
 .modal__error {

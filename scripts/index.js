@@ -37,6 +37,8 @@ const addCardBtn = document.querySelector(".profile__add-btn");
 const editProfModal = document.getElementById("edit-modal");
 const addCardModal = document.getElementById("add-card-modal");
 
+const cardSubmitbtn = addCardModal.querySelector(".modal__submit-btn");
+
 const prevModal = document.getElementById("preview-modal");
 const prevModalImgEl = prevModal.querySelector(".modal__image");
 const prevModalCapEl = prevModal.querySelector(".modal__caption");
@@ -91,12 +93,24 @@ const cardsList = document.querySelector(".cards__list");
 initialCards.forEach((element) => {
   const cardElement = getCardElement(element);
   cardsList.prepend(cardElement);
-  //i dont understand your explaination i am sorry
 });
 
 // OPEN/CLOSE MODAL FUNCTIONS______________________________________________________________
 const closeModal = (modal) => modal.classList.remove("modal_opened");
-const openModal = (modal) => modal.classList.add("modal_opened");
+const openModal = (modal) => {
+  modal.classList.add("modal_opened");
+  document.addEventListener("click", function (evt) {
+    if (evt.target.classList.contains("modal")) {
+      closeModal(modal);
+    }
+  });
+  document.addEventListener("keydown", function (evt) {
+    if (evt.key === "Escape" || evt.key === "Esc") {
+      closeModal(modal);
+    }
+  });
+  disableBtn(modal.querySelector(".modal__submit-btn"), settings);
+};
 
 //edit profile handler
 const handleEditProfSubmit = (evt) => {
@@ -113,6 +127,7 @@ const handleAddCardSubmit = (evt) => {
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
   evt.target.reset();
+  disableBtn(cardSubmitbtn, settings); //disabled so that blank cards cannot be added after a new card is submitted
   closeModal(addCardModal);
 };
 
@@ -120,8 +135,9 @@ const handleAddCardSubmit = (evt) => {
 
 //-------open edit prof modal--------------------------------------------------------------------
 profEditBtn.addEventListener("click", () => {
-  profNameField.value = profName.textContent;
-  profDescField.value = profDesc.textContent;
+  profNameField.value = "";
+  profDescField.value = "";
+  resetValidation(editProfModal, [profNameField, profDescField], settings);
   openModal(editProfModal);
 });
 //-------open add Card modal  -------------------------------------------------------------------
