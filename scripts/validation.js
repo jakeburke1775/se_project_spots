@@ -3,7 +3,8 @@ const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit-btn",
-  inactiveButtonClass: "modal__submit-btn-inactive",
+  submitBtnHover: "modal__submit-btn_hover",
+  inactiveButtonClass: "modal__submit-btn_inactive",
   inputErrorClass: "modal__input_has-error",
   errorClass: ".modal__error",
 };
@@ -55,15 +56,13 @@ const toggleButtonState = (inputList, buttonEl, config) => {
 const disableBtn = (buttEl, config) => {
   buttEl.disabled = true;
   buttEl.classList.add(config.inactiveButtonClass);
-  buttEl.classList.remove("modal__submit-btn_hover");
-  console.log(buttEl);
+  buttEl.classList.remove(config.submitBtnHover);
 };
 
 const enableBtn = (buttEl, config) => {
   buttEl.disabled = false;
   buttEl.classList.remove(config.inactiveButtonClass);
-  buttEl.classList.add("modal__submit-btn_hover");
-  console.log(buttEl);
+  buttEl.classList.add(config.submitBtnHover);
 };
 
 // EVENT LISTENERS**

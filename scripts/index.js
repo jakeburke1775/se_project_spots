@@ -47,9 +47,10 @@ const closeEditModalBttn = editProfModal.querySelector(".modal__close-btn");
 const closeAddCardModalBttn = addCardModal.querySelector(".modal__close-btn");
 const closePrevModalBttn = prevModal.querySelector(".modal__close-btn");
 
-const subProfForm = document.querySelector(".modal__form");
-// ^changing to document.forms[".modal__form"];
-// made it so that when you submit the screen refreshes :(
+const subProfForm = document.forms["edit-prof-form"]; //see alternatives below
+//const subProfForm = document.querySelector("#edit-prof-form");
+// const subProfForm = document.querySelector(".modal__form");
+
 const profName = document.querySelector(".profile__name");
 const profNameField = document.getElementById("profile-name-input");
 const profDesc = document.querySelector(".profile__description");
@@ -96,20 +97,29 @@ initialCards.forEach((element) => {
 });
 
 // OPEN/CLOSE MODAL FUNCTIONS______________________________________________________________
-const closeModal = (modal) => modal.classList.remove("modal_opened");
+const closeModal = (modal) => {
+  modal.classList.remove("modal_opened");
+  modal.removeEventListener("mousedown", handleClickOutside);
+  modal.removeEventListener("keydown", handleKeyDown);
+};
+
+const handleClickOutside = (evt) => {
+  if (evt.target.classList.contains("modal")) {
+    closeModal(evt.target);
+  }
+};
+
+const handleKeyDown = (evt) => {
+  if (evt.key === "Escape" || evt.key === "Esc") {
+    const modal = document.querySelector(".modal_opened");
+    if (modal) closeModal(modal);
+  }
+};
+
 const openModal = (modal) => {
   modal.classList.add("modal_opened");
-  document.addEventListener("click", function (evt) {
-    if (evt.target.classList.contains("modal")) {
-      closeModal(modal);
-    }
-  });
-  document.addEventListener("keydown", function (evt) {
-    if (evt.key === "Escape" || evt.key === "Esc") {
-      closeModal(modal);
-    }
-  });
-  disableBtn(modal.querySelector(".modal__submit-btn"), settings);
+  modal.addEventListener("mousedown", handleClickOutside);
+  modal.addEventListener("keydown", handleKeyDown);
 };
 
 //edit profile handler
@@ -120,12 +130,17 @@ const handleEditProfSubmit = (evt) => {
   closeModal(editProfModal);
 };
 
+//this function allows to prepend or append depending on the input or prepend as default
+const renderCard = (item, method = "prepend") => {
+  const cardElement = getCardElement(item);
+  cardsList[method](cardElement);
+};
+
 //add card handler
 const handleAddCardSubmit = (evt) => {
   evt.preventDefault();
   const inputValues = { name: addCardCaption.value, link: addCardURL.value };
-  const cardElement = getCardElement(inputValues);
-  cardsList.prepend(cardElement);
+  renderCard(inputValues);
   evt.target.reset();
   disableBtn(cardSubmitbtn, settings); //disabled so that blank cards cannot be added after a new card is submitted
   closeModal(addCardModal);
@@ -135,8 +150,8 @@ const handleAddCardSubmit = (evt) => {
 
 //-------open edit prof modal--------------------------------------------------------------------
 profEditBtn.addEventListener("click", () => {
-  profNameField.value = "";
-  profDescField.value = "";
+  profNameField.value = profName.textContent;
+  profDescField.value = profDesc.textContent;
   resetValidation(editProfModal, [profNameField, profDescField], settings);
   openModal(editProfModal);
 });
