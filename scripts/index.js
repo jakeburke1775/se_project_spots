@@ -91,18 +91,17 @@ function getCardElement(data) {
 
 const cardsList = document.querySelector(".cards__list");
 
+//this function allows to prepend or append depending on the input or prepend as default
+const renderCard = (item, method = "prepend") => {
+  renderCard(cardElement);
+};
+
 initialCards.forEach((element) => {
   const cardElement = getCardElement(element);
   cardsList.prepend(cardElement);
 });
 
 // OPEN/CLOSE MODAL FUNCTIONS______________________________________________________________
-const closeModal = (modal) => {
-  modal.classList.remove("modal_opened");
-  modal.removeEventListener("mousedown", handleClickOutside);
-  modal.removeEventListener("keydown", handleKeyDown);
-};
-
 const handleClickOutside = (evt) => {
   if (evt.target.classList.contains("modal")) {
     closeModal(evt.target);
@@ -116,10 +115,16 @@ const handleKeyDown = (evt) => {
   }
 };
 
+const closeModal = (modal) => {
+  modal.classList.remove("modal_opened");
+  modal.removeEventListener("mousedown", handleClickOutside);
+  document.removeEventListener("keydown", handleKeyDown);
+};
+
 const openModal = (modal) => {
   modal.classList.add("modal_opened");
   modal.addEventListener("mousedown", handleClickOutside);
-  modal.addEventListener("keydown", handleKeyDown);
+  document.addEventListener("keydown", handleKeyDown);
 };
 
 //edit profile handler
@@ -128,12 +133,6 @@ const handleEditProfSubmit = (evt) => {
   profName.textContent = profNameField.value;
   profDesc.textContent = profDescField.value;
   closeModal(editProfModal);
-};
-
-//this function allows to prepend or append depending on the input or prepend as default
-const renderCard = (item, method = "prepend") => {
-  const cardElement = getCardElement(item);
-  cardsList[method](cardElement);
 };
 
 //add card handler
