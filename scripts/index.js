@@ -93,12 +93,12 @@ const cardsList = document.querySelector(".cards__list");
 
 //this function allows to prepend or append depending on the input or prepend as default
 const renderCard = (item, method = "prepend") => {
-  renderCard(cardElement);
+  const cardElement = getCardElement(item);
+  cardsList[method](cardElement);
 };
 
 initialCards.forEach((element) => {
-  const cardElement = getCardElement(element);
-  cardsList.prepend(cardElement);
+  renderCard(element);
 });
 
 // OPEN/CLOSE MODAL FUNCTIONS______________________________________________________________
