@@ -1,27 +1,38 @@
+import {
+  enableValidation,
+  settings,
+  disableBtn,
+  resetValidation,
+} from "./validation.js";
+
 const initialCards = [
   {
-    name: "The Swamp",
-    link: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/11031417-71ef-493e-a9dc-4f9bb0b843eb/ddn12c3-172d16f0-c31c-48d9-bc84-a411522c32b2.png/v1/fill/w_1095,h_730,q_70,strp/shrek_s_swamp_by_naouriredouane1998_ddn12c3-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODU0IiwicGF0aCI6IlwvZlwvMTEwMzE0MTctNzFlZi00OTNlLWE5ZGMtNGY5YmIwYjg0M2ViXC9kZG4xMmMzLTE3MmQxNmYwLWMzMWMtNDhkOS1iYzg0LWE0MTE1MjJjMzJiMi5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.nWesVNP50-_LKTKrTAt1P6KZw2oKxRV750iB3XII3Kk",
+    name: "Golden Gate Bridge",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
   },
   {
-    name: "Duloc",
-    link: "https://wallpapers.com/images/high/land-of-duloc-shrek-pc-qa3xiri8x3024ohz.webp",
+    name: "Val Thorens",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
   },
   {
-    name: "Dragon's Keep",
-    link: "https://static.wikia.nocookie.net/remixfavoriteshowandgame/images/c/c8/Dragon%27s_Keep.jpg",
+    name: "Restaurant terrace",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
   },
   {
-    name: "The Forrest",
-    link: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d3789c8c-0874-407c-a457-03b147f59b18/dfo7cwn-8f3a7360-c2ba-46a3-a156-c0fafa59d113.jpg/v1/fill/w_1151,h_694,q_70,strp/shrek_2_forest_background_by_darkmoonanimation_dfo7cwn-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzcyIiwicGF0aCI6IlwvZlwvZDM3ODljOGMtMDg3NC00MDdjLWE0NTctMDNiMTQ3ZjU5YjE4XC9kZm83Y3duLThmM2E3MzYwLWMyYmEtNDZhMy1hMTU2LWMwZmFmYTU5ZDExMy5qcGciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.P9C1XJ-i86cjMheV36hRYkGhz9tjP-j2xn7ZmopiQfc",
+    name: "An outdoor cafe",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
   },
   {
-    name: "Potion Factory",
-    link: "https://i.ytimg.com/vi/XKKLmbo1Epk/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgXChDMA8=&rs=AOn4CLDTFALHIcz4sEIdJFbCqjSHX3Yccg",
+    name: "A very long bridge, over the forest and through the trees",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
   },
   {
-    name: "Far Far Away",
-    link: "https://static.wikia.nocookie.net/shrek/images/4/42/Far_Far_Away.jpg",
+    name: "Tunnel with morning light",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
+  },
+  {
+    name: "Mountain house",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
 ];
 
@@ -165,3 +176,5 @@ subProfForm.addEventListener("submit", handleEditProfSubmit);
 
 //-------submit add card form------------------------------------------------------------
 subCardForm.addEventListener("submit", handleAddCardSubmit);
+
+enableValidation(settings);

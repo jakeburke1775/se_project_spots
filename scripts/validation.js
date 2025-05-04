@@ -1,5 +1,5 @@
 //Config Object
-const settings = {
+export const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit-btn",
@@ -38,7 +38,7 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const resetValidation = (formEl, inputList, config) => {
+export const resetValidation = (formEl, inputList, config) => {
   inputList.forEach((inputL) => {
     hideInputError(formEl, inputL, config);
   });
@@ -53,7 +53,7 @@ const toggleButtonState = (inputList, buttonEl, config) => {
   }
 };
 
-const disableBtn = (buttEl, config) => {
+export const disableBtn = (buttEl, config) => {
   buttEl.disabled = true;
   buttEl.classList.add(config.inactiveButtonClass);
   buttEl.classList.remove(config.submitBtnHover);
@@ -79,11 +79,9 @@ const setEventListeners = (formEl, config) => {
 };
 
 // PULL THE TRIGGER
-const enableValidation = (config) => {
+export const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((FormEl) => {
     setEventListeners(FormEl, config);
   });
 };
-
-enableValidation(settings);
