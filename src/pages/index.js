@@ -1,3 +1,5 @@
+//IMPORTS____________________________________________________________________________________
+
 import "./index.css";
 import {
   enableValidation,
@@ -6,6 +8,27 @@ import {
   resetValidation,
 } from "../scripts/validation.js";
 import Api from "../utils/Api.js";
+
+// --images
+import iLogo from "../images/logo.svg";
+const headerLogoImg = document.getElementById("header-logo");
+headerLogoImg.src = iLogo;
+
+import iLtPen from "../images/lt-pen.svg";
+const penLtImg = document.getElementById("lt-pen-img");
+penLtImg.src = iLtPen;
+
+import iPen from "../images/pen.svg";
+const penImg = document.getElementById("pen-img");
+penImg.src = iPen;
+
+import iAvatar from "../images/avatar.png";
+const avatarImg = document.getElementById("avatar-img");
+avatarImg.src = iAvatar;
+
+import iPlus from "../images/plus.svg";
+const plusImg = document.getElementById("plus-img");
+plusImg.src = iPlus;
 
 // const initialCards = [
 //   {
@@ -80,57 +103,49 @@ api
   })
   .catch((err) => console.log(err));
 
-//Image Imports
-import iLogo from "../images/logo.svg";
-const headerLogoImg = document.getElementById("header-logo");
-headerLogoImg.src = iLogo;
-
-import iLtPen from "../images/lt-pen.svg";
-const penLtImg = document.getElementById("lt-pen-img");
-penLtImg.src = iLtPen;
-
-import iPen from "../images/pen.svg";
-const penImg = document.getElementById("pen-img");
-penImg.src = iPen;
-
-import iAvatar from "../images/avatar.png";
-const avatarImg = document.getElementById("avatar-img");
-avatarImg.src = iAvatar;
-
-import iPlus from "../images/plus.svg";
-const plusImg = document.getElementById("plus-img");
-plusImg.src = iPlus;
-
 //DOM SELECTORS____________________________________________________________________________
-const profEditBtn = document.querySelector(".profile__edit-btn");
-const addCardBtn = document.querySelector(".profile__add-btn");
 
-//--modals
+//--modal selectors
 const editProfModal = document.getElementById("edit-modal");
 const addCardModal = document.getElementById("add-card-modal");
 
-const cardSubmitbtn = addCardModal.querySelector(".modal__submit-btn");
+//edit avatar pic
+const avatarModal = document.getElementById("edit-avatar-modal");
+const avatarForm = avatarModal.querySelector(".modal__form");
+const avatarSubmitBtn = avatarModal.querySelector(".modal__submit-btn");
+const avatarCloseBtn = avatarModal.querySelector(".modal__close-btn");
+const avatarInput = avatarModal.querySelector(".modal__input");
 
-const prevModal = document.getElementById("preview-modal");
-const prevModalImgEl = prevModal.querySelector(".modal__image");
-const prevModalCapEl = prevModal.querySelector(".modal__caption");
-
-const closeEditModalBttn = editProfModal.querySelector(".modal__close-btn");
-const closeAddCardModalBttn = addCardModal.querySelector(".modal__close-btn");
-const closePrevModalBttn = prevModal.querySelector(".modal__close-btn");
-
-const subProfForm = document.forms["edit-prof-form"]; //see alternatives below
-//const subProfForm = document.querySelector("#edit-prof-form");
-// const subProfForm = document.querySelector(".modal__form");
-
+// --edit profile
 const profName = document.querySelector(".profile__name");
 const profNameField = document.getElementById("profile-name-input");
 const profDesc = document.querySelector(".profile__description");
 const profDescField = document.getElementById("profile-name-description");
-
-const subCardForm = addCardModal.querySelector(".modal__form");
 const addCardURL = addCardModal.querySelector("#add-card-link-input");
 const addCardCaption = addCardModal.querySelector("#add-card-name-input");
+
+// --preview modal
+const prevModal = document.getElementById("preview-modal");
+const prevModalImgEl = prevModal.querySelector(".modal__image");
+const prevModalCapEl = prevModal.querySelector(".modal__caption");
+
+// -Modal Buttons
+// --open
+const profEditBtn = document.querySelector(".profile__edit-btn");
+const addCardBtn = document.querySelector(".profile__add-btn");
+const avatarModalBtn = document.querySelector(".prof__avatar-btn");
+// --submit buttons
+
+const cardSubmitbtn = addCardModal.querySelector(".modal__submit-btn");
+const subCardForm = addCardModal.querySelector(".modal__form");
+const subProfForm = document.forms["edit-prof-form"]; //see alternatives below
+//const subProfForm = document.querySelector("#edit-prof-form");
+// const subProfForm = document.querySelector(".modal__form");
+
+// --close
+const closeEditModalBttn = editProfModal.querySelector(".modal__close-btn");
+const closeAddCardModalBtn = addCardModal.querySelector(".modal__close-btn");
+const closePrevModalBttn = prevModal.querySelector(".modal__close-btn");
 
 //CARD DATA AND LOOP_______________________________________________________________________
 function getCardElement(data) {
@@ -195,7 +210,8 @@ const openModal = (modal) => {
   document.addEventListener("keydown", handleKeyDown);
 };
 
-//edit profile handler
+//HANDLERS___________________________________________________________
+// --edit profile handler
 const handleEditProfSubmit = (evt) => {
   evt.preventDefault();
   api
@@ -214,13 +230,21 @@ const handleEditProfSubmit = (evt) => {
     .catch((err) => console.log(err));
 };
 
-//add card handler
+// --add card handler
 const handleAddCardSubmit = (evt) => {
   evt.preventDefault();
   const inputValues = { name: addCardCaption.value, link: addCardURL.value };
   renderCard(inputValues);
   evt.target.reset();
   disableBtn(cardSubmitbtn, settings); //disabled so that blank cards cannot be added after a new card is submitted
+  closeModal(addCardModal);
+};
+
+// --Avatar submittion handler
+const handleAvatarSubmit = (evt) => {
+  evt.preventDefault();
+  //finish avatar submittion handler
+  // avatarInput.value;
   closeModal(addCardModal);
 };
 
@@ -238,15 +262,24 @@ addCardBtn.addEventListener("click", () => {
   openModal(addCardModal);
 });
 
+//open avatar edit modal
+avatarModalBtn.addEventListener("click", () => {
+  openModal(avatarModal);
+});
+
 //-------close buttons-----------------------------------------------------------
 closeEditModalBttn.addEventListener("click", () => closeModal(editProfModal));
-closeAddCardModalBttn.addEventListener("click", () => closeModal(addCardModal));
+closeAddCardModalBtn.addEventListener("click", () => closeModal(addCardModal));
 closePrevModalBttn.addEventListener("click", () => closeModal(prevModal));
+avatarCloseBtn.addEventListener("click", () => closeModal(avatarModal));
 
 //-------submit edit prof form------------------------------------------------------------
 subProfForm.addEventListener("submit", handleEditProfSubmit);
 
 //-------submit add card form------------------------------------------------------------
 subCardForm.addEventListener("submit", handleAddCardSubmit);
+
+//-------avatar form submit------------------------------------------------------------
+avatarForm.addEventListener("submit", handleAvatarSubmit);
 
 enableValidation(settings);
