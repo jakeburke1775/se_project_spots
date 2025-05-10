@@ -1,40 +1,105 @@
+import "./index.css";
 import {
   enableValidation,
   settings,
   disableBtn,
   resetValidation,
-} from "./validation.js";
+} from "../scripts/validation.js";
+import Api from "../utils/Api.js";
 
-const initialCards = [
-  {
-    name: "Golden Gate Bridge",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+// const initialCards = [
+//   {
+//     name: "Golden Gate Bridge",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+//   },
+//   {
+//     name: "Val Thorens",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
+//   },
+//   {
+//     name: "Restaurant terrace",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
+//   },
+//   {
+//     name: "An outdoor cafe",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
+//   },
+//   {
+//     name: "A very long bridge, over the forest and through the trees",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
+//   },
+//   {
+//     name: "Tunnel with morning light",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
+//   },
+//   {
+//     name: "Mountain house",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
+//   },
+// ];
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "02891d6b-be7c-433b-9ae7-7faa3595a89d",
+    "Content-Type": "application/json",
   },
-  {
-    name: "Val Thorens",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-  {
-    name: "Restaurant terrace",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-  },
-  {
-    name: "An outdoor cafe",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-  },
-  {
-    name: "A very long bridge, over the forest and through the trees",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-  },
-  {
-    name: "Tunnel with morning light",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-  },
-  {
-    name: "Mountain house",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-];
+});
+
+//destructure the second item in the callback of the .then()
+
+// api
+//   .getInitialCards()
+// .then((cards) => {
+//   cards.forEach((element) => {
+//     renderCard(element);
+//   });
+//   //handle the users info
+//   // - set the src of the avatar image
+//   // - set the textContent of both the text element
+// })
+// .catch((err) => {
+//   console.log(err);
+// });
+
+// api.getAppInfo()
+// .then(([cards, userData]) => {
+//   renderCard(cards);
+//   // ****Now you can also use userData here
+//   console.log(userData);
+// })
+// .catch(err => console.log(err));
+
+api
+  .getAppInfo()
+  .then(([cards, userData]) => {
+    cards.forEach((card) => renderCard(card));
+    profName.textContent = userData.name;
+    profDesc.textContent = userData.about;
+    avatarImg.src = userData.avatar;
+  })
+  .catch((err) => console.log(err));
+
+//Image Imports
+import iLogo from "../images/logo.svg";
+const headerLogoImg = document.getElementById("header-logo");
+headerLogoImg.src = iLogo;
+
+import iLtPen from "../images/lt-pen.svg";
+const penLtImg = document.getElementById("lt-pen-img");
+penLtImg.src = iLtPen;
+
+import iPen from "../images/pen.svg";
+const penImg = document.getElementById("pen-img");
+penImg.src = iPen;
+
+import iAvatar from "../images/avatar.png";
+const avatarImg = document.getElementById("avatar-img");
+avatarImg.src = iAvatar;
+
+import iPlus from "../images/plus.svg";
+const plusImg = document.getElementById("plus-img");
+plusImg.src = iPlus;
 
 //DOM SELECTORS____________________________________________________________________________
 const profEditBtn = document.querySelector(".profile__edit-btn");
@@ -104,10 +169,6 @@ const renderCard = (item, method = "prepend") => {
   cardsList[method](cardElement);
 };
 
-initialCards.forEach((element) => {
-  renderCard(element);
-});
-
 // OPEN/CLOSE MODAL FUNCTIONS______________________________________________________________
 const handleClickOutside = (evt) => {
   if (evt.target.classList.contains("modal")) {
@@ -137,9 +198,20 @@ const openModal = (modal) => {
 //edit profile handler
 const handleEditProfSubmit = (evt) => {
   evt.preventDefault();
-  profName.textContent = profNameField.value;
-  profDesc.textContent = profDescField.value;
-  closeModal(editProfModal);
+  api
+    .editUserInfo({
+      name: `${profNameField.value}`,
+      about: `${profDescField.value}`,
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      profName.textContent = res.name;
+      profDesc.textContent = res.about;
+      closeModal(editProfModal);
+    })
+    .catch((err) => console.log(err));
 };
 
 //add card handler
