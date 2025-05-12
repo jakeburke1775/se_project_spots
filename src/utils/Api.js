@@ -42,7 +42,6 @@ export default class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
-      // Send the data in the body as a JSON string.
       body: JSON.stringify({
         name,
         about,
@@ -52,7 +51,65 @@ export default class Api {
         return res.json();
       }
       return Promise.reject(`Error: ${res.status}`);
-      // handle the response
+    });
+  }
+
+  editAvatarInfo({ avatar }) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  addCard({ name, link }) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name,
+        link,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  toggleLike(id, isLiked) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: isLiked ? "DELETE" : "PUT",
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 }

@@ -103,17 +103,20 @@ api
   })
   .catch((err) => console.log(err));
 
+let selectedCard;
+let selectedCardId;
+
 //DOM SELECTORS____________________________________________________________________________
 
 //--modal selectors
 const editProfModal = document.getElementById("edit-modal");
 const addCardModal = document.getElementById("add-card-modal");
-
-//edit avatar pic
 const avatarModal = document.getElementById("edit-avatar-modal");
+const deleteModal = document.getElementById("delete-card-modal");
+
+// --edit avatar
 const avatarForm = avatarModal.querySelector(".modal__form");
-const avatarSubmitBtn = avatarModal.querySelector(".modal__submit-btn");
-const avatarCloseBtn = avatarModal.querySelector(".modal__close-btn");
+// const avatarSubmitBtn = avatarModal.querySelector(".modal__submit-btn");
 const avatarInput = avatarModal.querySelector(".modal__input");
 
 // --edit profile
@@ -134,8 +137,9 @@ const prevModalCapEl = prevModal.querySelector(".modal__caption");
 const profEditBtn = document.querySelector(".profile__edit-btn");
 const addCardBtn = document.querySelector(".profile__add-btn");
 const avatarModalBtn = document.querySelector(".prof__avatar-btn");
-// --submit buttons
 
+// --submit buttons
+const deleteSubmitBtn = deleteModal.querySelector(".modal__submit-btn");
 const cardSubmitbtn = addCardModal.querySelector(".modal__submit-btn");
 const subCardForm = addCardModal.querySelector(".modal__form");
 const subProfForm = document.forms["edit-prof-form"]; //see alternatives below
@@ -146,6 +150,8 @@ const subProfForm = document.forms["edit-prof-form"]; //see alternatives below
 const closeEditModalBttn = editProfModal.querySelector(".modal__close-btn");
 const closeAddCardModalBtn = addCardModal.querySelector(".modal__close-btn");
 const closePrevModalBttn = prevModal.querySelector(".modal__close-btn");
+const avatarCloseBtn = avatarModal.querySelector(".modal__close-btn");
+const avatarCloseBtn2 = avatarModal.querySelector(".modal__cancel-btn");
 
 //CARD DATA AND LOOP_______________________________________________________________________
 function getCardElement(data) {
@@ -156,15 +162,16 @@ function getCardElement(data) {
   const cardLikeBtn = cardElement.querySelector(".card__like-btn");
   const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
 
+  cardElement.dataset.cardId = data._id; // Store the ID as a data attribute
   cardNameEl.textContent = data.name;
   cardImgEl.alt = data.name;
   cardImgEl.src = data.link;
 
-  cardLikeBtn.addEventListener("click", () =>
-    cardLikeBtn.classList.toggle("card__like-btn_liked")
-  );
+  cardDeleteBtn.addEventListener("click", () => {
+    handleCardDelete(cardElement, data);
+  });
 
-  cardDeleteBtn.addEventListener("click", () => cardElement.remove());
+  cardLikeBtn.addEventListener("click", () => handleCardLike(cardLikeBtn));
 
   cardImgEl.addEventListener("click", () => {
     openModal(prevModal);
@@ -180,6 +187,7 @@ const cardsList = document.querySelector(".cards__list");
 
 //this function allows to prepend or append depending on the input or prepend as default
 const renderCard = (item, method = "prepend") => {
+  console.log("Card data being rendered:", item);
   const cardElement = getCardElement(item);
   cardsList[method](cardElement);
 };
@@ -233,19 +241,58 @@ const handleEditProfSubmit = (evt) => {
 // --add card handler
 const handleAddCardSubmit = (evt) => {
   evt.preventDefault();
-  const inputValues = { name: addCardCaption.value, link: addCardURL.value };
-  renderCard(inputValues);
-  evt.target.reset();
-  disableBtn(cardSubmitbtn, settings); //disabled so that blank cards cannot be added after a new card is submitted
-  closeModal(addCardModal);
+  api
+    .addCard({
+      name: `${addCardCaption.value}`,
+      link: `${addCardURL.value}`,
+    })
+    .then((newCard) => {
+      renderCard(newCard);
+      evt.target.reset();
+      closeModal(addCardModal);
+      disableBtn(cardSubmitbtn, settings);
+    })
+    .catch((err) => console.log(err));
 };
 
 // --Avatar submittion handler
 const handleAvatarSubmit = (evt) => {
   evt.preventDefault();
-  //finish avatar submittion handler
-  // avatarInput.value;
-  closeModal(addCardModal);
+  api
+    .editAvatarInfo({
+      avatar: `${avatarInput.value}`,
+    })
+    .then((res) => {
+      avatarImg.src = res.avatar;
+      closeModal(editProfModal);
+    })
+    .catch((err) => console.log(err));
+  closeModal(avatarModal);
+};
+
+// --delete cards
+const handleCardDelete = (cardEl, data) => {
+  console.log("CardData: ", data);
+  console.log("Card ID from dataset:", cardEl.dataset.cardId);
+
+  selectedCard = cardEl; // Assign the card element to selectedCard
+  selectedCardId = cardEl.dataset.cardId;
+  openModal(deleteModal);
+};
+const handleDeleteSubmit = (evt) => {
+  evt.preventDefault();
+  api
+    .deleteCard(selectedCardId) // pass the ID the the api function
+    .then(() => {
+      selectedCard.remove();
+      closeModal(deleteModal);
+    })
+    .catch(console.error);
+};
+
+// --like cards
+const handleCardLike = (cardLikeBtn) => {
+  cardLikeBtn.classList.toggle("card__like-btn_liked");
 };
 
 // EVENT LISTENERS_________________________________________________________________________
@@ -281,5 +328,8 @@ subCardForm.addEventListener("submit", handleAddCardSubmit);
 
 //-------avatar form submit------------------------------------------------------------
 avatarForm.addEventListener("submit", handleAvatarSubmit);
+
+//-------delete card submit------------------------------------------------------------
+deleteSubmitBtn.addEventListener("click", handleDeleteSubmit);
 
 enableValidation(settings);
