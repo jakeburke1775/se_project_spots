@@ -21,11 +21,6 @@ The prompt was introduced as a figma design and rendered into a proper website.
 
 This project is deployed by GitHub Pages. (currently hosting main branch, not the latest project)
 
-## Future Development
-
-Backend development will be utilized in the future to save the changes when the user refreshes.
-I plan to use this kind of design to portray concept art of the videogame I am also creating.
-
 ## Project Links
 
 [The Website](https://jakeburke1775.github.io/se_project_spots/)
