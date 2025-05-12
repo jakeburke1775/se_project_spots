@@ -37,7 +37,7 @@
   margin: 12px 0 0 0;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
+  /* overflow: hidden; */
   font-weight: 500;
   font-size: 20px;
   line-height: 1;
