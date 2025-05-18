@@ -2,12 +2,12 @@
   display: flex;
   padding: 34px 0 20px;
   border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
+  max-height: 190px;
 }
 
 .prof__avatar-container {
   position: relative;
   margin-right: 20px;
-  /* 11:49 */
 }
 
 .prof__avatar-container:hover .prof__avatar-btn {
@@ -25,7 +25,7 @@
   border-radius: 8px;
   opacity: 30%;
   background-color: #212121;
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 
 .prof__btn-container {

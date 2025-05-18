@@ -144,7 +144,7 @@ const subProfForm = document.forms["edit-prof-form"]; //see alternatives below
 const closeEditModalBttn = editProfModal.querySelector(".modal__close-btn");
 const closeAddCardModalBtn = addCardModal.querySelector(".modal__close-btn");
 const closePrevModalBttn = prevModal.querySelector(".modal__close-btn");
-const avatarCloseBtn = avatarModal.querySelector(".modal__close-btn");
+const closeAvatarModalBtn = avatarModal.querySelector(".modal__close-btn");
 //CARD DATA AND LOOP_______________________________________________________________________
 function getCardElement(data) {
   const cardTemp = document.getElementById("card-temp");
@@ -333,7 +333,7 @@ avatarModalBtn.addEventListener("click", () => {
 closeEditModalBttn.addEventListener("click", () => closeModal(editProfModal));
 closeAddCardModalBtn.addEventListener("click", () => closeModal(addCardModal));
 closePrevModalBttn.addEventListener("click", () => closeModal(prevModal));
-avatarCloseBtn.addEventListener("click", () => closeModal(avatarModal));
+closeAvatarModalBtn.addEventListener("click", () => closeModal(avatarModal));
 
 //-------submit edit prof form------------------------------------------------------------
 subProfForm.addEventListener("submit", handleEditProfSubmit);
