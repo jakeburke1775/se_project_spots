@@ -126,8 +126,12 @@
 .modal__input_has-error {
   border: 1px solid red;
 }
+.delete-btn-container {
+  display: flex;
+  justify-content: space-between;
+}
 
-.modal__submit-btn {
+.modal__btn {
   width: 156px;
   padding: 18px 0;
   font-weight: 500;
@@ -145,7 +149,10 @@
   text-decoration-skip-ink: none;
 }
 
-.modal__submit-btn_hover:hover {
+.modal__submit-btn_delete {
+  background-color: red;
+}
+.modal__btn:hover {
   opacity: 0.8;
   cursor: url(../images/pointer.png), auto;
 }

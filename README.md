@@ -14,16 +14,12 @@ The prompt was introduced as a figma design and rendered into a proper website.
 - HTML: Markup is done with proper element usage
 - CSS: flexbox, grid, media queries, face fonts
 - JavaScript: The posts are organized into an object model. the user is able to add, remove, and favorite posts and edit the profile. Form errors are responsive to user input and demonstrate a user-friendly experience.
-- Git: proper file formatting and terminal execution is practiced
+- webpack
+- api
 
 ## Deployment
 
-This project is deployed by GitHub Pages.
-
-## Future Development
-
-Backend development will be utilized in the future to save the changes when the user refreshes.
-I plan to use this kind of design to portray concept art of the videogame I am also creating.
+This project is deployed by GitHub Pages. (currently hosting main branch, not the latest project)
 
 ## Project Links
 
