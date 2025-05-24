@@ -21,11 +21,13 @@
           <div class="prof__avatar-container">
             <div class="prof__btn-container">
               <button class="prof__avatar-btn">
-                <img
-                  class="prof__avatar-btn-pen"
-                  id="lt-pen-img"
-                  alt="pen representing edit profile option"
-                />Edit Avatar
+                <div class="prof__avatar-btn-contnent">
+                  <img
+                    class="prof__avatar-btn-pen"
+                    id="lt-pen-img"
+                    alt="pen representing edit profile option"
+                  />Edit Avatar
+                </div>
               </button>
             </div>
             <img id="avatar-img" alt="Your Avatar" class="profile__avatar" />
@@ -96,7 +98,9 @@
                 class="modal__error"
               ></span>
             </label>
-            <button class="modal__submit-btn" type="submit">Save</button>
+            <button class="modal__btn modal__submit-btn" type="submit">
+              Save
+            </button>
           </form>
         </div>
       </div>
@@ -133,7 +137,9 @@
               />
               <span id="add-card-name-input-error" class="modal__error"></span>
             </label>
-            <button class="modal__submit-btn" type="submit">Save</button>
+            <button class="modal__btn modal__submit-btn" type="submit">
+              Save
+            </button>
           </form>
         </div>
       </div>
@@ -166,7 +172,9 @@
               />
               <span id="profile-avatar-input-error" class="modal__error"></span>
             </label>
-            <button class="modal__submit-btn" type="submit">Save</button>
+            <button class="modal__btn modal__submit-btn" type="submit">
+              Save
+            </button>
           </form>
         </div>
       </div>
@@ -180,12 +188,14 @@
           <form class="modal__form" id="delete-card-form" novalidate>
             <div class="delete-btn-container">
               <button
-                class="modal__submit-btn modal__submit-btn_delete"
+                class="modal__btn modal__submit-btn modal__submit-btn_delete"
                 type="submit"
               >
                 Delete
               </button>
-              <button class="modal__submit-btn" type="button">Cancel</button>
+              <button class="modal__btn modal__cancel-btn" type="button">
+                Cancel
+              </button>
             </div>
           </form>
         </div>

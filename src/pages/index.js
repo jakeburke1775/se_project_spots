@@ -85,18 +85,10 @@ const api = new Api({
 //   console.log(err);
 // });
 
-// api.getAppInfo()
-// .then(([cards, userData]) => {
-//   renderCard(cards);
-//   // ****Now you can also use userData here
-//   console.log(userData);
-// })
-// .catch(err => console.log(err));
-
 api
   .getAppInfo()
   .then(([cards, userData]) => {
-    cards.forEach((card) => renderCard(card));
+    cards.forEach((card) => renderCard(card, "append"));
     profName.textContent = userData.name;
     profDesc.textContent = userData.about;
     avatarImg.src = userData.avatar;
@@ -112,6 +104,7 @@ const editProfModal = document.getElementById("edit-modal");
 const addCardModal = document.getElementById("add-card-modal");
 const avatarModal = document.getElementById("edit-avatar-modal");
 const deleteModal = document.getElementById("delete-card-modal");
+const prevModal = document.getElementById("preview-modal");
 // --edit avatar
 const avatarForm = avatarModal.querySelector(".modal__form");
 // const avatarSubmitBtn = avatarModal.querySelector(".modal__submit-btn");
@@ -124,7 +117,6 @@ const profDescField = document.getElementById("profile-name-description");
 const addCardURL = addCardModal.querySelector("#add-card-link-input");
 const addCardCaption = addCardModal.querySelector("#add-card-name-input");
 // --preview modal
-const prevModal = document.getElementById("preview-modal");
 const prevModalImgEl = prevModal.querySelector(".modal__image");
 const prevModalCapEl = prevModal.querySelector(".modal__caption");
 // -Modal Buttons
@@ -140,11 +132,13 @@ const subProfForm = document.forms["edit-prof-form"]; //see alternatives below
 //const subProfForm = document.querySelector("#edit-prof-form");
 // const subProfForm = document.querySelector(".modal__form");
 
-// --close
-const closeEditModalBttn = editProfModal.querySelector(".modal__close-btn");
-const closeAddCardModalBtn = addCardModal.querySelector(".modal__close-btn");
-const closePrevModalBttn = prevModal.querySelector(".modal__close-btn");
-const closeAvatarModalBtn = avatarModal.querySelector(".modal__close-btn");
+// --close buttons
+const cancelDeleteBtn = deleteModal.querySelector(".modal__cancel-btn"); //unique cancel button
+const closeButtons = document.querySelectorAll(".modal__close-btn");
+closeButtons.forEach((button) => {
+  const modal = button.closest(".modal");
+  button.addEventListener("click", () => closeModal(modal));
+});
 //CARD DATA AND LOOP_______________________________________________________________________
 function getCardElement(data) {
   const cardTemp = document.getElementById("card-temp");
@@ -188,8 +182,7 @@ function getCardElement(data) {
 const cardsList = document.querySelector(".cards__list");
 
 //this function allows to prepend or append depending on the input or prepend as default
-const renderCard = (item, method = "prepend") => {
-  console.log("Card data being rendered:", item);
+const renderCard = (item, method = "append") => {
   const cardElement = getCardElement(item);
   cardsList[method](cardElement);
 };
@@ -206,9 +199,6 @@ const handleEditProfSubmit = (evt) => {
       about: `${profDescField.value}`,
     })
     .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
       profName.textContent = res.name;
       profDesc.textContent = res.about;
       closeModal(editProfModal);
@@ -229,7 +219,7 @@ const handleAddCardSubmit = (evt) => {
       link: `${addCardURL.value}`,
     })
     .then((newCard) => {
-      renderCard(newCard);
+      renderCard(newCard, "prepend");
       evt.target.reset();
       closeModal(addCardModal);
       disableBtn(cardSubmitbtn, settings);
@@ -261,9 +251,6 @@ const handleAvatarSubmit = (evt) => {
 
 // --delete cards
 const handleCardDelete = (cardEl, data) => {
-  console.log("CardData: ", data);
-  console.log("Card ID from dataset:", cardEl.dataset.cardId);
-
   selectedCard = cardEl; // Assign the card element to selectedCard
   selectedCardId = cardEl.dataset.cardId;
   openModal(deleteModal);
@@ -271,7 +258,7 @@ const handleCardDelete = (cardEl, data) => {
 
 const handleDeleteSubmit = (evt) => {
   evt.preventDefault();
-  deleteSubmitBtn.textContent = "Saving..";
+  deleteSubmitBtn.textContent = "Deleting..";
   api
     .deleteCard(selectedCardId) // pass the ID the the api function
     .then(() => {
@@ -329,11 +316,8 @@ avatarModalBtn.addEventListener("click", () => {
   openModal(avatarModal);
 });
 
-//-------close buttons-----------------------------------------------------------
-closeEditModalBttn.addEventListener("click", () => closeModal(editProfModal));
-closeAddCardModalBtn.addEventListener("click", () => closeModal(addCardModal));
-closePrevModalBttn.addEventListener("click", () => closeModal(prevModal));
-closeAvatarModalBtn.addEventListener("click", () => closeModal(avatarModal));
+//-------cancel button (works the same as close buttons-----------------------------------------------
+cancelDeleteBtn.addEventListener("click", () => closeModal(deleteModal));
 
 //-------submit edit prof form------------------------------------------------------------
 subProfForm.addEventListener("submit", handleEditProfSubmit);

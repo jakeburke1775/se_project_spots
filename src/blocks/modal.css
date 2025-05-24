@@ -130,7 +130,8 @@
   display: flex;
   justify-content: space-between;
 }
-.modal__submit-btn {
+
+.modal__btn {
   width: 156px;
   padding: 18px 0;
   font-weight: 500;
@@ -151,7 +152,7 @@
 .modal__submit-btn_delete {
   background-color: red;
 }
-.modal__submit-btn_hover:hover {
+.modal__btn:hover {
   opacity: 0.8;
   cursor: url(../images/pointer.png), auto;
 }

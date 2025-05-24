@@ -14,6 +14,9 @@
   visibility: visible;
 }
 
+.prof__avatar-btn-contnent {
+  padding-bottom: 12px;
+}
 .prof__avatar-btn {
   position: absolute;
   width: 100%;
@@ -23,15 +26,18 @@
   justify-content: center;
   border: none;
   border-radius: 8px;
-  opacity: 30%;
-  background-color: #212121;
-  /* visibility: hidden; */
+  opacity: 50%;
+  background-color: black;
+  color: white;
+  visibility: hidden;
 }
 
-.prof__btn-container {
+.prof__avatar-btn:hover {
+  cursor: url(../images/pointer.png), auto;
 }
 
 .prof__avatar-btn-pen {
+  margin-right: 8px;
 }
 
 .profile__avatar {
